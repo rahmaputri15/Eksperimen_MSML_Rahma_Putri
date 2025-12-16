@@ -75,6 +75,8 @@ def automate_healthcare_preprocessing(input_path, output_path):
 if __name__ == "__main__":
     # Menyesuaikan path dengan struktur folder di repositori GitHub Anda
     automate_healthcare_preprocessing(
-        input_path='preprocessing/healthcare_dataset.csv',
-        output_path='preprocessed/healthcare_dataset_cleaned.csv'
+        # Pastikan file CSV mentah ada di dalam folder preprocessing
+        input_path='preprocessing/healthcare_dataset.csv', 
+        # Simpan hasil ke folder preprocessed di tingkat utama
+        output_path='preprocessed/healthcare_dataset_cleaned.csv' 
     )
