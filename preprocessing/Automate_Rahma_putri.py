@@ -8,36 +8,26 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 import os
-import sys # Saya tambah ini buat memaksa error jika file tidak ada
+import sys
 
 def automate_healthcare_preprocessing(input_path, output_path):
     print("🚀 Memulai proses preprocessing otomatis untuk Healthcare Dataset...\n")
 
-    # =================================================================
-    # 👇 BAGIAN INI KODE DETEKTIFNYA (SAYA SISIPKAN DI SINI) 👇
-    # =================================================================
-    print(f"📂 SAYA SEDANG BERADA DI: {os.getcwd()}")
-    print(f"📂 ISI FOLDER SAAT INI: {os.listdir()}")
-    
-    # Cek apakah folder 'preprocessing' terlihat oleh Python?
-    if os.path.exists('preprocessing'):
-        print(f"📂 ISI FOLDER 'preprocessing': {os.listdir('preprocessing')}")
-    else:
-        print("⚠️ Folder 'preprocessing' TIDAK ditemukan di lokasi ini.")
-    
-    # Cek path file spesifik yang kita cari
+    # --- DEBUGGING (Boleh dihapus nanti) ---
+    print(f"📂 Lokasi Script berjalan: {os.getcwd()}")
     if os.path.exists(input_path):
         print(f"✅ File ditemukan di: {input_path}")
     else:
         print(f"❌ File TIDAK ditemukan di: {input_path}")
-    # =================================================================
-
+        print(f"📂 Cek isi folder root: {os.listdir('.')}")
+        if os.path.exists('preprocessing'):
+             print(f"📂 Cek isi folder preprocessing: {os.listdir('preprocessing')}")
+    # ----------------------------------------
 
     # 1. Load dataset
     if not os.path.exists(input_path):
         print(f"❌ Error Fatal: File {input_path} tidak ditemukan! Menghentikan proses.")
-        # Kita pakai exit(1) supaya GitHub Action sadar kalau ini GAGAL (Merah)
-        sys.exit(1) 
+        sys.exit(1) # Keluar supaya Action error
 
     df = pd.read_csv(input_path)
     print(f"✅ Dataset berhasil dimuat: {df.shape[0]} baris, {df.shape[1]} kolom")
@@ -90,7 +80,9 @@ def automate_healthcare_preprocessing(input_path, output_path):
     print(f"📊 Ukuran akhir dataset: {df.shape[0]} baris, {df.shape[1]} kolom")
 
 if __name__ == "__main__":
+    # PERUBAHAN ADA DISINI 👇
+    # Karena file kamu ada di folder utama (root), kita hapus 'preprocessing/' dari path
     automate_healthcare_preprocessing(
-        input_path='preprocessing/healthcare_dataset.csv', 
+        input_path='healthcare_dataset.csv', 
         output_path='preprocessed/healthcare_dataset_cleaned.csv' 
     )
